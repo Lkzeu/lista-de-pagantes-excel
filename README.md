@@ -7,7 +7,7 @@ Eu tinha a necessidade de automatizar a inserção de novos assinantes a uma pla
 - [Python 3](https://www.python.org/)  
 
 - [Chromedriver](https://chromedriver.chromium.org/downloads)  
-  __DEVE__ estar solto junto com o arquivo "main.py" e "add_pagantes.py"  
+  >__Deve__ estar solto junto com o arquivo "main.py" e "add_pagantes.py"  
 
 - __Selenium__
   >Windows: pip install selenium  
