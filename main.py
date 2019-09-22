@@ -33,7 +33,7 @@ def main():
 
 def enviar(chromedrive = '', mes = ''):
    arquivo = "planilha/pagantes 2018.xlsx"
-   wb = xl.load_workbook(arquivo)#, read_only=True)
+   wb = xl.load_workbook(arquivo)
    ws = wb.get_sheet_by_name(mes)
    vencimentos = ws['E']
 

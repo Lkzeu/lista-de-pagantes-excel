@@ -72,6 +72,8 @@ def cria_pagantes(mes = ''):
                   x = hoje()
                if x.lower() == 's':
                   x = input("Qual o dia do pagamento? ")
+                  if x == '':
+                     x = hoje()
                   qt_meses = int(input("Quantos meses {} tem? ".format(ls_data[0])))
                ls_data.append(x)
                 
