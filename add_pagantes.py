@@ -9,12 +9,12 @@ import openpyxl
 import os
 
 def cria_pagantes(mes = ''):
-   backup() # faz backup do arquivo
 
    arquivo = "planilha/pagantes 2018.xlsx"    
    try:
       wb = load_workbook(arquivo)
-      ws = wb.get_sheet_by_name(mes)   
+      ws = wb.get_sheet_by_name(mes) 
+      backup() # faz backup do arquivo  
 
    # se não existir o arquivo, ele é criado
    except FileNotFoundError:
@@ -167,8 +167,6 @@ def backup(modo = 0):
 
             if len(backups_existentes) == int(num_backups):
                os.remove(pasta_backup+backups_existentes[0])
+               copy2(arquivo, destino)
       except IOError:
          backup(1)
-
-   copy2(arquivo, destino)
-
