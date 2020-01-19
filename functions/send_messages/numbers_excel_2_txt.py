@@ -1,43 +1,44 @@
 #!/usr/bin/env python3
 
 from datetime import datetime
+from typing import Dict
+
 from openpyxl import load_workbook
 
-from functions.send_messages.vencimentos_txt import venc_em_txt, dia_vencimento
-from functions.send_messages.verifica_se_eh_brazileiro import is_brazil
+from functions.send_messages.vencimentos_txt import get_vencimento, dia_vencimento
+from functions.send_messages.verifica_se_eh_brazileiro import is_brasileiro
 
-# pega cada número da planilha e add a um txt
-def numbers_xl_to_txt(arquivo = '', mes = ''): 
-   txt_numeros = 'TXTs/tmp_cobrar numeros.txt'
-   txt_vencimentos = 'TXTs/tmp_vencimentos.txt'
+NUMERO = str
+VENCIMENTO = str
+def numbers_xl_to_txt(arquivo: str, mes: str) -> Dict[NUMERO, VENCIMENTO]:
+   numeros_e_vencimentos = dict()
+
    wb = load_workbook(arquivo)
    ws = wb[mes]
-   n_pagantes = ws['B']
-   
+
+   numero_dos_pagantes = ws['B']
+
    agora = datetime.now()
    hoje = agora.day
 
-   # cria dois intervalos; ]0, 15], ]15, 31]
-   # em cada intervalo são enviadas mensagens para as pessoas
-   # que os dias de seus vencimentos se enquadram no intervalo 
-   if hoje < 15:
-      min, max = 0, 15 
-   else:
+   min, max = 0, 15
+   if hoje >= 15:
       min, max = 15, 31
 
    for celula in range(1, ws.max_row):
-      numero = str(n_pagantes[celula].value)    # pega o número da pessoa
-      dia, month, ano = dia_vencimento(wb, wb[mes], celula)  # retorna o dia e mes do vencimento da pessoa
-      if min < dia <= max and month == agora.month and ano == agora.year:  # verifica se seu vencimento está no intervalo
-         salva(numero, txt_numeros)       # cria um txt com os numeros
-         venc_em_txt(wb, wb[mes], celula, txt_vencimentos) # cria um txt com os vencimentos    
+      numero = str(numero_dos_pagantes[celula].value)
+      dia, month, ano = dia_vencimento(ws['E'], celula)
 
-   return txt_numeros, txt_vencimentos
+      if min < dia <= max and month == agora.month and ano == agora.year:
+         numero_pagante = get_numero_formatado(numero)
+         vencimento = get_vencimento(ws['E'], celula)
+         numeros_e_vencimentos[numero] = vencimento
 
-# salva o número em um txt, diferenciando números brasileiros de estrangeiros
-def salva(number, txt):
-   with open(txt, 'a+') as num:
-      if is_brazil(str(number)):
-         num.write("55"+number+'\n')
-      else:
-         num.write(number+'\n')
+   return numeros_e_vencimentos
+
+def get_numero_formatado(number: str) -> str:
+   numero = number
+   if is_brasileiro(number):
+      numero = '55'+number
+
+   return numero

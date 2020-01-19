@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 
-# verifica se um número é brasileiro ou não
-def is_brazil(telefone = ''):
+def is_brasileiro(telefone: str) -> bool:
    # se o número passar em um dos testes será verificado o DDD, caso seja um DDD brasileiro
-   # retornará a condição para ser gravado como número brasileiro no TXT da função 'salva()'
+   # retornará a condição para acrescentar o '55' ao numero na função get_numero_formatado()
    if len(telefone) == 10 or (len(telefone) == 11 and telefone[2] == '9'):
-      with open("TXTs/ddd.txt") as a:
-         ddds = a.read()
-         return True if telefone[0:2] in ddds else False
+      ddds = open("TXTs/ddd.txt", encoding = 'utf-8').read()
+      return True if telefone[0:2] in ddds else False
    return False
