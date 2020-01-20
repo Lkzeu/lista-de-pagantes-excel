@@ -4,20 +4,7 @@ Um projeto em python onde pude aplicar meus conhecimentos para adicionar dados d
 ### Por quê?
 Eu tinha a necessidade de automatizar a inserção de novos assinantes a uma planilha em excel e de cobrar, pelo whatsapp, várias pessoas em dias variados.
 ### Requisitos
-- [Python 3](https://www.python.org/)  
-
-- [Chromedriver](https://chromedriver.chromium.org/downloads)  
-  >__Deve__ estar solto junto com o arquivo "main.py" e "add_pagantes.py"  
-
-- __Selenium__
-  >Windows: pip install selenium  
-  >Linux: pip3 install selenium  
-- __Openpyxl__  
-  >Windows: pip install openpyxl  
-  >Linux: pip3 install openpyxl  
-- __Pyperclip__  
-  >Windows: pip install pyperclip  
-  >Linux: pip3 install pyperclip  
+- Ter o [Chromedriver](https://chromedriver.chromium.org/downloads) instalado. O mesmo deve estar dentro da pasta "functions/send_messages"
 
 ### Funções
 - [x] Detecta automáticamente o mês e adiciona todos os dados na folha correspondente ao mês;  
