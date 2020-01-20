@@ -10,7 +10,7 @@ def separa_dia_mes(data = '00/00/0000'):
    dia, mes, ano = data.split('/')
    return int(dia), int(mes), int(ano)
 
-def dias_mes(mes = 1):
+def dias_mes(mes: int):
    meses = {
       'Janeiro' : 31,
       'Fevereiro' : 28,
@@ -28,18 +28,18 @@ def dias_mes(mes = 1):
    mes = list(meses)[mes - 1]
    return meses[mes]
 
-def vencimento(data = '00/00/0000', quantidade_de_mes = 1):
+def vencimento(data: str = '00/00/0000', quantidade_de_mes: int = 1):
    dia, mes, ano = separa_dia_mes(data)
    dia += 31 * quantidade_de_mes
-   
-   while dia > dias_mes(mes):
-      dia -= dias_mes(mes)
+   dias_no_mes = dias_mes(mes)
+   while dia > dias_no_mes:
+      dia -= dias_no_mes
       mes += 1
       if mes > 12:
          ano += 1
          mes -= 12
    dia, mes = coloca_zero(dia), coloca_zero(mes)
-   
+
    return '/'.join([dia, mes, str(ano)])
 
 def pergunta(data, nome = ''):

@@ -32,12 +32,13 @@ def numbers_xl_to_txt(arquivo: str, mes: str) -> Dict[NUMERO, VENCIMENTO]:
       if min < dia <= max and month == agora.month and ano == agora.year:
          numero_pagante = get_numero_formatado(numero)
          vencimento = get_vencimento(ws['E'], celula)
-         numeros_e_vencimentos[numero] = vencimento
+         numeros_e_vencimentos[numero_pagante] = vencimento
 
    return numeros_e_vencimentos
 
 def get_numero_formatado(number: str) -> str:
    numero = number
+
    if is_brasileiro(number):
       numero = '55'+number
 

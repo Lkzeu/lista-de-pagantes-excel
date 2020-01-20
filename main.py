@@ -2,29 +2,26 @@
 
 from datetime import datetime
 from os.path import realpath, dirname, exists
-
-import os
+from os import mkdir
 
 from functions.send_messages import cobrar_pagantes
 from functions.add_pagante import add_pagantes
 from functions.send_messages import numbers_excel_2_txt
 
-def main():
+def main(pasta_principal):
    now = datetime.now()
    meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
             "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
    mes = meses[now.month - 1]
 
    planilha = '/planilha/pagantes '
-   pasta_principal = dirname(realpath(__file__))
 
    while True:
       x = int(input("1 - adicionar pessoas\n"
                     "2 - enviar mensagens\n"))
 
-       + str(now.year) + '.xlsx'
       if x == 1:
-         arquivo = realpath(pasta_principal + planilha + str(now.year) + '.xlxs')
+         arquivo = realpath(pasta_principal + planilha + str(now.year) + '.xlsx')
          add_pagantes.cria_pagantes(pasta_principal, arquivo, mes)
       elif x == 2:
          year = now.year
@@ -41,7 +38,7 @@ def main():
 
 def cria_pasta(caminho):
    if not exists(caminho):
-      os.mkdir(caminho)
+      mkdir(caminho)
 
 if __name__ == '__main__':
    pasta_principal = dirname(realpath(__file__))
